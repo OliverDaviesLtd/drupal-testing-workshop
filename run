@@ -39,7 +39,7 @@ function lint:dockerfile {
     hadolint/hadolint hadolint \
       --ignore DL3008 \
       --ignore DL3022 \
-      "${@}" - < Dockerfile
+      "${@}" - < tools/docker/Dockerfile
 }
 
 function php {

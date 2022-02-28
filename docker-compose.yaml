@@ -2,6 +2,7 @@ services:
   php:
     build:
       context: .
+      dockerfile: tools/docker/Dockerfile
       target: install-dependencies
     volumes:
       - ./:/var/www/html
