@@ -1,0 +1,30 @@
+services:
+  php:
+    build:
+      context: .
+      target: install-dependencies
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - "${DOCKER_WEB_PORT_FORWARD:-127.0.0.1:80}:80"
+    tty: true
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  mysql:
+    image: mariadb:10
+    volumes:
+      - db-data:/var/lib/mysql
+    environment:
+      - "MYSQL_DATABASE=${DB_NAME}"
+      - "MYSQL_PASSWORD=${DB_PASSWORD}"
+      - "MYSQL_ROOT_PASSWORD=root"
+      - "MYSQL_USER=${DB_USER}"
+    healthcheck:
+      test: ["CMD-SHELL", "bash", "-c", "echo > /dev/tcp/localhost/3306"]
+      interval: 1s
+
+volumes:
+  db-data:
+  files:

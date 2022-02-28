@@ -1,0 +1,7 @@
+/.editorconfig
+/.env
+/.flag-built
+/.gitattributes
+/vendor/
+/web/*/contrib/
+/web/core/
