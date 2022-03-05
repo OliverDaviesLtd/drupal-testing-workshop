@@ -1,0 +1,11 @@
+services:
+  Drupal\legacy\Action\ValidatesTheAccessToken:
+    class: Drupal\legacy\Action\ValidateTheAccessToken
+
+  Drupal\legacy\Controller\ApiController:
+    arguments:
+      - '@Drupal\legacy\Action\ValidatesTheAccessToken'
+
+  Drupal\legacy\Repository\ArticleRepository:
+    arguments:
+      - '@entity_type.manager'

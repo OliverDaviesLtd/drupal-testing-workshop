@@ -1,0 +1,20 @@
+legacy.api.found:
+  path: '/api/found.json'
+  defaults:
+    _controller: 'Drupal\legacy\Controller\ApiController::found'
+  requirements:
+    _permission: 'access content'
+
+legacy.api.needs-valid-token:
+  path: '/api/needs-valid-token.json'
+  defaults:
+    _controller: 'Drupal\legacy\Controller\ApiController::needsValidToken'
+  requirements:
+    _permission: 'access content'
+
+legacy.api.not-found:
+  path: '/api/not-found.json'
+  defaults:
+    _controller: 'Drupal\legacy\Controller\ApiController::notFound'
+  requirements:
+    _permission: 'access content'
