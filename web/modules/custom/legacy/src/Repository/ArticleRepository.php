@@ -6,6 +6,8 @@ namespace Drupal\legacy\Repository;
 
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\legacy\Model\Article;
+use Drupal\legacy\Model\ArticleInterface;
 use Drupal\node\NodeInterface;
 
 final class ArticleRepository {
@@ -19,13 +21,24 @@ final class ArticleRepository {
   }
 
   public function findAll(): array {
-    return $this->nodeStorage->loadByProperties([
+    $nodes = $this->nodeStorage->loadByProperties([
       'type' => 'article',
     ]);
+
+    return array_values(
+      array: array_map(
+        array: $nodes,
+        callback: fn (NodeInterface $node): ArticleInterface => Article::fromNode(node: $node),
+      )
+    );
   }
 
-  public function findOneById(int $id): ?NodeInterface {
-    return $this->nodeStorage->load($id);
+  public function findOneById(int $id): ?ArticleInterface {
+    if (!$node = $this->nodeStorage->load($id)) {
+      return NULL;
+    }
+
+    return Article::fromNode($node);
   }
 
 }
