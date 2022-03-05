@@ -17,11 +17,11 @@ final class ArticleRepository {
   public function __construct(
     EntityTypeManagerInterface $entityTypeManager,
   ) {
-    $this->nodeStorage = $entityTypeManager->getStorage('node');
+    $this->nodeStorage = $entityTypeManager->getStorage(entity_type_id: 'node');
   }
 
   public function findAll(): array {
-    $nodes = $this->nodeStorage->loadByProperties([
+    $nodes = $this->nodeStorage->loadByProperties(values: [
       'type' => 'article',
     ]);
 
@@ -34,11 +34,11 @@ final class ArticleRepository {
   }
 
   public function findOneById(int $id): ?ArticleInterface {
-    if (!$node = $this->nodeStorage->load($id)) {
+    if (!$node = $this->nodeStorage->load(id: $id)) {
       return NULL;
     }
 
-    return Article::fromNode($node);
+    return Article::fromNode(node: $node);
   }
 
 }
